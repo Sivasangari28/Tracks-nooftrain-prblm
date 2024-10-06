@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Railway Station Capacity Tracker</title><br>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: rgb(231, 231, 189);
+      color: #fff;
+      text-align: center;
+      padding: 0;
+      margin: 0;
+    }
+
+    h1 {
+      margin-top: 20px;
+      font-size: 2.5em;
+      color:black;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    label, input {
+      display: block;
+      width: 100%;
+      margin-bottom: 15px;
+      font-size: 1.1em;
+    }
+
+    input[type="text"], input[type="number"] {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1.1em;
+      color: rgb(196, 179, 230);
+      background-color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #ff7f50;
+      color: #fff;
+    }
+
+    .station-list {
+      margin-top: 20px;
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .station-list li {
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.2);
+      margin: 5px 0;
+      border-radius: 5px;
+      font-size: 1.1em;
+    }
+
+    .exceeded {
+      background: rgba(255, 0, 0, 0.6);
+      font-weight: bold;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <br><h1>Railway Station Capacity Tracker</h1>
+  <div class="container">
+    <label for="stationName">Station Name:</label>
+    <input type="text" id="stationName" placeholder="Enter station name" required>
+    
+    <label for="stationCapacity">Maximum Capacity:</label>
+    <input type="number" id="stationCapacity" placeholder="Enter maximum capacity" required>
+    
+    <label for="trainCount">Number of Trains:</label>
+    <input type="number" id="trainCount" placeholder="Enter current number of trains" required>
+    
+    <button onclick="addStation()">Add Station</button>
+
+    <ul class="station-list" id="stationList"></ul>
+  </div>
+
+  <script>
+    function addStation() {
+      const stationName = document.getElementById('stationName').value;
+      const stationCapacity = parseInt(document.getElementById('stationCapacity').value);
+      const trainCount = parseInt(document.getElementById('trainCount').value);
+
+      if (!stationName || isNaN(stationCapacity) || isNaN(trainCount)) {
+        alert('Please fill in all fields.');
+        return;
+      }
+
+      const listItem = document.createElement('li');
+      listItem.textContent = `${stationName} - Trains: ${trainCount}/${stationCapacity}`;
+
+      if (trainCount > stationCapacity) {
+        listItem.classList.add('exceeded');
+        listItem.textContent += ' (Capacity Exceeded!)';
+      }
+
+      document.getElementById('stationList').appendChild(listItem);
+
+      document.getElementById('stationName').value = '';
+      document.getElementById('stationCapacity').value = '';
+      document.getElementById('trainCount').value = '';
+    }
+  </script>
+</body>
+</html>
